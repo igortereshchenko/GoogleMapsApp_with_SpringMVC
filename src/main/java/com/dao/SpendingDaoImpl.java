@@ -25,10 +25,7 @@ public class SpendingDaoImpl implements SpendingDao<Spending>{
     public void addSpending(Spending spending) {
 
         Session session = this.sessionFactory.getCurrentSession();
-        session.getTransaction().begin();
         session.persist(spending);
-        session.getTransaction().commit();
-
         logger.info("Spending successfully saved. Details: " + spending);
 
     }
