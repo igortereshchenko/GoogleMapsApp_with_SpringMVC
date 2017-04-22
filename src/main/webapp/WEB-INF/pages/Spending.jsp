@@ -23,7 +23,7 @@
         #field_div{
             margin: 5%;
             border: solid 1px black;
-            padding: 7%;
+            padding: 5%;
             float: right;
             background-color: lemonchiffon;
         }
@@ -37,8 +37,19 @@
         var geocoder;
         var infowindow;
 
+       /* $(() => {
+            $('#infoSelect').attr("value", "Їжа");
+            console.log($('#infoSelect'));
+        });*/
+
+
         function addAdresFild(adr) {
             $('#text_adres').val(adr);
+        }
+
+        function checkedSelect() {
+            var s = $('#clr :selected').text();
+            $('#infoSelect').attr("value", s);
         }
 
         function initialize() {
@@ -105,20 +116,18 @@
             <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
         </div>
 
-        <div class="form-group">
-            <label for="text">На що тратили</label>
-            <form:input path="types"  type="text" class="form-control" id="text_adres" />
-        </div>
 
 
-        <%--<select class="form-control">
-            <option>Їжа</option>
+        <select class="form-control" id="clr" onchange="checkedSelect()">
+            <option selected>Їжа</option>
             <option>Одяг</option>
             <option>Розваги</option>
             <option>Подарунки</option>
-        </select>--%>
+        </select>
+        <form:input path="types" type="hidden" class="form-control" id="infoSelect"/>
+
         <br>
-        <button type="submit" class="btn btn-success">Додати</button>
+        <button type="submit" class="btn btn-success" >Додати</button>
 
     </form:form>
 </div>

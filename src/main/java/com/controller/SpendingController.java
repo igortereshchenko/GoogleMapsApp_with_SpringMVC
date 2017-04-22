@@ -34,6 +34,7 @@ public class SpendingController {
         @RequestMapping(value = "/spending/add", method = RequestMethod.POST)
         public String addBook(@ModelAttribute("spending") Spending spending){
 
+            System.out.println(spending);
             this.spendingService.addSpending(spending);
 
         return "redirect:/spending";
