@@ -6,9 +6,15 @@
 
 <html>
 <head>
-  <title>BookData</title>
+
+   <title>SpendingData</title>
 
   <style type="text/css">
+
+    #spending_list{
+
+    }
+
     .tg {
       border-collapse: collapse;
       border-spacing: 0;
@@ -49,21 +55,31 @@
 
 </head>
 <body>
-<h1>Book Details</h1>
+<br>
+<br>
+<center><h1>Spending Details</h1></center>
 
-<table class="tg">
-  <tr>
-    <th width="80">ID</th>
-    <th width="120">Title</th>
-    <th width="120">Author</th>
-    <th width="120">Price</th>
-  </tr>
-  <tr>
-    <td>${book.id}</td>
-    <td>${book.bookTitle}</td>
-    <td>${book.bookAuthor}</td>
-    <td>${book.price/100}${book.price%100}</td>
-  </tr>
-</table>
+<c:if test="${!empty spendingList}">
+  <center>
+  <div id="spending_list">
+    <table class="tg">
+      <tr>
+        <th width="80">ID</th>
+        <th width="120">address</th>
+        <th width="120">amount</th>
+        <th width="120">types</th>
+      </tr>
+      <c:forEach items="${spendingList}" var="spending">
+        <tr>
+          <td>${spending.id}</td>
+          <td>${spending.address}</td>
+          <td>${spending.amount}</td>
+          <td>${spending.types}</td>
+        </tr>
+      </c:forEach>
+    </table>
+  </div>
+  </center>
+</c:if>
 </body>
 </html>

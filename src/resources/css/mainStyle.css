@@ -1,0 +1,16 @@
+#map-canvas {
+    margin: 5%;
+    padding: 16%;
+    float: left;
+    border: solid 1px black;
+}
+#field_div{
+    margin: 5%;
+    border: solid 1px black;
+    padding: 5%;
+    float: right;
+    background-color: lemonchiffon;
+}
+body{
+    background-color: beige; /* Цвет фона веб-страницы */
+}

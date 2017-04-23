@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<%--
+    <script type="text/css" src="css/mainStyle.css"/>
+--%>
 
     <title>Google Maps : Sample 5 : WebCoding Solutions</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -36,12 +39,6 @@
         var map;
         var geocoder;
         var infowindow;
-
-       /* $(() => {
-            $('#infoSelect').attr("value", "Їжа");
-            console.log($('#infoSelect'));
-        });*/
-
 
         function addAdresFild(adr) {
             $('#text_adres').val(adr);
@@ -95,41 +92,43 @@
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
-<body >
-<h1 align="center">Дипломна робота</h1>
-<div id="map-canvas"></div>
 
+<body>
 
-<div id= "field_div">
+    <h1 align="center">Дипломна робота</h1>
 
-    <c:url var="addAction" value="/spending/add"/>
-    <form:form action="${addAction}" commandName="spending">
+    <div id="map-canvas"></div>
 
+    <div id= "field_div">
+        <c:url var="addAction" value="/spending/add"/>
+        <form:form action="${addAction}" commandName="spending">
 
-        <div class="form-group">
-            <label for="text">Адреса</label>
-            <form:input path="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
-        </div>
+            <div class="form-group">
+                <label for="text">Адреса</label>
+                <form:input path="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
+            </div>
+            <div class="form-group">
+                <label for="text">Кількість потрачених грошей</label>
+                <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
+            </div>
 
-        <div class="form-group">
-            <label for="text">Кількість потрачених грошей</label>
-            <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
-        </div>
+            <select class="form-control" id="clr" onchange="checkedSelect()">
+                <option selected>Їжа</option>
+                <option>Одяг</option>
+                <option>Розваги</option>
+                <option>Подарунки</option>
+            </select>
 
+            <form:input path="types" type="hidden" class="form-control" id="infoSelect"/>
 
-
-        <select class="form-control" id="clr" onchange="checkedSelect()">
-            <option selected>Їжа</option>
-            <option>Одяг</option>
-            <option>Розваги</option>
-            <option>Подарунки</option>
-        </select>
-        <form:input path="types" type="hidden" class="form-control" id="infoSelect"/>
-
-        <br>
-        <button type="submit" class="btn btn-success" >Додати</button>
-
-    </form:form>
+            <br>
+            <button type="submit" class="btn btn-success" >Додати</button>
+            <a href="<c:url value="/sendingData"/>">
+            <button type="button" class="btn btn-success" >Переглянути додане</button>
+            </a>
+         </form:form>
 </div>
+
 </body>
+
 </html>

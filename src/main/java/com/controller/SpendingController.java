@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,13 +32,19 @@ public class SpendingController {
         return "Spending";
     }
 
-        @RequestMapping(value = "/spending/add", method = RequestMethod.POST)
-        public String addBook(@ModelAttribute("spending") Spending spending){
+    @RequestMapping(value = "/spending/add", method = RequestMethod.POST)
+    public String addBook(@ModelAttribute("spending") Spending spending){
 
-            System.out.println(spending);
-            this.spendingService.addSpending(spending);
+        System.out.println(spending);
+        this.spendingService.addSpending(spending);
 
         return "redirect:/spending";
     }
 
+    @RequestMapping("sendingData")
+    public String bookData(Model model){
+
+        model.addAttribute("spendingList", this.spendingService.listSpending());
+        return "spendingData";
+    }
 }
