@@ -1,7 +1,7 @@
 -- Create table
 create table PLACEPOINT
 (
-  PLACEPOINT_ID      NUMBER(5),
+  PLACEPOINT_ID      NUMBER(5) not null,
   PLACEPOINT_LONG    NUMBER(5) not null,
   PLACEPOINT_LAT     NUMBER(5) not null,
   PLACEPOINT_ADDRESS VARCHAR2(250)
