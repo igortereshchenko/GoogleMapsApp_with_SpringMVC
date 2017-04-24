@@ -33,7 +33,7 @@
             <label for="pass">Пароль</label>
             <input type="password" class="form-control" id="pass" placeholder="Пароль">
         </div>
-        <a href="<c:url value="/spending"/>" target="_blank"><button type="button" class="btn btn-success">Увійти</button></a>
+        <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
         <button type="submit" class="btn btn-success">Реєстрація</button>
     </form>
 </div>

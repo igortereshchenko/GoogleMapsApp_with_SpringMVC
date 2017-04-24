@@ -123,8 +123,8 @@
 
             <br>
             <button type="submit" class="btn btn-success" >Додати</button>
-            <a href="<c:url value="/sendingData"/>">
-            <button type="button" class="btn btn-success" >Переглянути додане</button>
+            <a href="<c:url value="/sendingData"/>" target="_blank">
+            <button type="button" class="btn btn-success"  >Переглянути додане</button>
             </a>
          </form:form>
 </div>
