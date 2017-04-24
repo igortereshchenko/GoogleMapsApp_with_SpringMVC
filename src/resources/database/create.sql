@@ -1,3 +1,24 @@
+-- Create table TAG
+create table TAG
+(
+  TAG_NAME        VARCHAR2(30) not null,
+  TAG_NAME_PARENT_FK VARCHAR2(30) not null,  
+  TAG_DISCRIPTION VARCHAR2(250)
+) ;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table TAG
+  add constraint PK_TAG primary key (TAG_NAME) ;
+  
+alter table TAG
+add constraint FK_TAG
+  foreign key (TAG_NAME_PARENT_FK)
+  references TAG(TAG_NAME);
+
+
+  
+------------------------------------NEXT FILE!!!------------------------------------  
+
 create table USERS
 (
   USER_PHONE     NUMBER(10) not null,
@@ -6,18 +27,10 @@ create table USERS
   USER_BIRTHDATE DATE not null
 );
 
--- Create table TAG
-create table TAG
-(
-  TAG_ID          NUMBER(5) not null,
-  TAG_NAME        VARCHAR2(30) not null,
-  TAG_DISCRIPTION VARCHAR2(250)
-) ;
-
 -- Create table PLACEPOINT
 create table PLACEPOINT
 (
-  PLACEPOINT_ID      NUMBER(5),
+  PLACEPOINT_ID      NUMBER(5) not null,
   PLACEPOINT_LONG    NUMBER(5) not null,
   PLACEPOINT_LAT     NUMBER(5) not null,
   PLACEPOINT_ADDRESS VARCHAR2(250) not null
@@ -47,11 +60,6 @@ alter table USERS
 alter table USERS
   add constraint UNQ_USERS_NAME unique (USER_NAME) ;
   
-  -- Create/Recreate primary, unique and foreign key constraints 
-alter table TAG
-  add constraint PK_TAG_ID primary key (TAG_ID) ;
-alter table TAG
-  add constraint UNQ_TAG_NAME unique (TAG_NAME) ;
   
   -- Create/Recreate primary, unique and foreign key constraints 
 alter table PLACEPOINT
