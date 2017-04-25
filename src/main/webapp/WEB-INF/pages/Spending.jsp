@@ -17,19 +17,31 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
+        #lat_div {
+            display: none;
+        }
+
+        #long_div{
+            display: none;
+        }
+
+
         #map-canvas {
-            margin: 5%;
+            margin-top: 5%;
+            margin-left: 15%;
             padding: 16%;
             float: left;
             border: solid 1px black;
         }
         #field_div{
-            margin: 5%;
+            margin-top: 5%;
+            margin-right: 15%;
             border: solid 1px black;
-            padding: 5%;
+            padding: 3%;
             float: right;
             background-color: lemonchiffon;
         }
+
         body{
             background-color: beige; /* Цвет фона веб-страницы */
         }
@@ -42,6 +54,11 @@
 
         function addAdresFild(adr) {
             $('#text_adres').val(adr);
+        }
+
+        function addCoord(location) {
+            $('#long').val(location.lng());
+            $('#lat').val(location.lat());
         }
 
         function checkedSelect() {
@@ -70,6 +87,9 @@
             });
             geocoder.geocode({latLng:location}, function (results, status) {
                 var addr = '';
+
+                addCoord(location);
+
                 if(status == 'OK') {
                     if(results.length == 0) {
                         addr = 'None';
@@ -100,33 +120,66 @@
     <div id="map-canvas"></div>
 
     <div id= "field_div">
-        <c:url var="addAction" value="/spending/add"/>
-        <form:form action="${addAction}" commandName="spending">
+       <%-- <c:url var="addAction" value="/spending/add"/>
+        <form:form action="${addAction}" commandName="spending">--%>
 
             <div class="form-group">
-                <label for="text">Адреса</label>
+                <label for="text_adres">Адреса</label>
+                <input path="address" type="text" class="form-control" id="text_adres" placeholder="Поставте маркер на карті" disabled/>
+<%--
                 <form:input path="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
-            </div>
-            <div class="form-group">
-                <label for="text">Кількість потрачених грошей</label>
-                <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
+--%>
             </div>
 
+            <div class="form-group" id="lat_div">
+                <label for="lat">Широта</label>
+                <input path="lat" type="text" class="form-control" id="lat" placeholder="Широта"/>
+<%--
+                <form:input path="lat" type="hidden" class="form-control" id="lat" placeholder="Широта"/>
+--%>
+            </div>
+
+            <div class="form-group" id="long_div">
+                <label for="long">Довгота</label>
+                <input path="long" type="text" class="form-control" id="long" placeholder="Довгота"/>
+<%--
+                <form:input path="long" type="hidden" class="form-control" id="long" placeholder="Довгота"/>
+--%>
+            </div>
+
+            <div class="form-group">
+                <label for="money">Кількість потрачених грошей</label>
+                <input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
+<%--
+                <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
+--%>
+            </div>
+           <label for="date">Тип витрат</label>
             <select class="form-control" id="clr" onchange="checkedSelect()">
                 <option selected>Їжа</option>
                 <option>Одяг</option>
                 <option>Розваги</option>
                 <option>Подарунки</option>
             </select>
+            <br>
+           <div class="form-group">
+               <label for="date">Дата події</label>
+               <input type="date" name="tel_reg" id="date" class="form-control" placeholder="Дата події" required>
+           </div>
 
+<%--
             <form:input path="types" type="hidden" class="form-control" id="infoSelect"/>
+--%>
 
             <br>
             <button type="submit" class="btn btn-success" >Додати</button>
+<%--
             <a href="<c:url value="/sendingData"/>" target="_blank">
-            <button type="button" class="btn btn-success"  >Переглянути додане</button>
+--%>
+           <a href="" target="_blank">
+            <button type="button" class="btn btn-success">Переглянути додане</button>
             </a>
-         </form:form>
+         <%--</form:form>--%>
 </div>
 
 </body>

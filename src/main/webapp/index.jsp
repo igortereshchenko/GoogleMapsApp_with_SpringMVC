@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/maskinput.js"></script>
+    <script type="text/javascript">
+        jQuery(function($){
+            $("#tel").mask("+38(999) 999-9999");
+        });
+    </script>
+
+
     <style>
         #div_reg{
             margin-top: 5%;
@@ -25,14 +33,27 @@
 
 <div id="div_reg">
     <form role="form">
+
+        <div class="form-group">
+            <label for="names">Ім'я</label>
+            <input type="text" class="form-control" id="names" placeholder="Ім'я" required pattern="[A-Za-zА-Яа-я_-]{2,30}[А-Яа-яA-Za-z]{2,30}">
+        </div>
+
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Введіть email">
+            <input type="email" class="form-control" id="email" placeholder="Введіть email" required pattern="(\W|^)[\w.+\-]{0,25}@(yahoo|hotmail|gmail|i)\.com(\W|$)">
         </div>
+
         <div class="form-group">
-            <label for="pass">Пароль</label>
-            <input type="password" class="form-control" id="pass" placeholder="Пароль">
+            <label for="email">Номер телефону</label>
+            <input type="tel" name="tel_reg" id="tel" class="form-control" placeholder="Мобільний телефон" required>
         </div>
+
+        <div class="form-group">
+            <label for="date">День народження</label>
+            <input type="date" name="tel_reg" id="date" class="form-control" placeholder="День народження" required>
+        </div>
+
         <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
         <button type="submit" class="btn btn-success">Реєстрація</button>
     </form>

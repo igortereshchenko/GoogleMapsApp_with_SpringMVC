@@ -15,3 +15,4 @@ alter table TAG
 foreign key (TAG_NAME_PARENT_FK)
 references TAG(TAG_NAME);
 
+
