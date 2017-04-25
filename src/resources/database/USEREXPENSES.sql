@@ -4,6 +4,7 @@ create table USEREXPENSES
   USEREXPENSES_ID   NUMBER(5) not null,
   USER_PHONE_FK     NUMBER(5) not null,
   PLACEPOINT_ID_FK  NUMBER(5) not null,
+  USEREXPERSES_COUNT NUMBER(8) not null,
   USEREXPERSES_DATE DATE default SYSDATE not null
 ) ;
 
