@@ -23,6 +23,7 @@
         }
 
 
+
         #map-canvas {
             margin-top: 5%;
             margin-left: 15%;
@@ -66,7 +67,7 @@
         function initialize() {
             var mapOptions = {
                 zoom: 8,
-                center: new google.maps.LatLng(50.450100, 30.5234)
+                center: new google.maps.LatLng(50.4384221, 30.4796225)
             };
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             geocoder = new google.maps.Geocoder();
@@ -125,7 +126,7 @@
 <%--
             <input path="address" type="text" class="form-control" id="text_adres" placeholder="Поставте маркер на карті" disabled/>
 --%>
-            <input name="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу" disabled/>
+            <input name="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
         </div>
 
         <div class="form-group" id="lat_div">
@@ -165,7 +166,7 @@
         </div>
 
 
-        <input name="types" type="hidden" class="form-control" id="infoSelect"/>
+        <input name="types" type="hidden" class="form-control" id="infoSelect" value="їжа"/>
         <br>
         <button type="submit" class="btn btn-success" >Додати</button>
         <%--

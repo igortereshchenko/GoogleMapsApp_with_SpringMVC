@@ -26,13 +26,13 @@ public class MainController {
     @RequestMapping(value = "/expenses/add", method = RequestMethod.POST)
     public String addExpenses(HttpServletRequest request){
 
-        Object address = request.getParameter("address");
+        Object add = request.getParameter("address");
         Object lat = request.getParameter("lat");
         Object longg = request.getParameter("long");
         Object amount = request.getParameter("amount");
         Object types = request.getParameter("types");
 
-        String addres_str = (String) address;
+        String addres_str = (String) add;
         String lat_str = (String) lat;
         String longg_str = (String) longg;
         String amount_str = (String) amount;
