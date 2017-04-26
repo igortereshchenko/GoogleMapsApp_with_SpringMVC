@@ -17,11 +17,11 @@
 
     <style>
         #div_reg{
-            margin-top: 5%;
+            margin-top: 2%;
             margin-left: 30%;
             margin-right: 30%;
             border: solid 1px black;
-            padding: 5%;
+            padding: 3%;
             float: inherit;
             background-color: lemonchiffon;
         }
@@ -54,7 +54,8 @@
             <input type="date" name="tel_reg" id="date" class="form-control" placeholder="День народження" required>
         </div>
 
-        <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
+        <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Приклад</button></a>
+        <a href="<c:url value="/expenses"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
         <button type="submit" class="btn btn-success">Реєстрація</button>
     </form>
 </div>
