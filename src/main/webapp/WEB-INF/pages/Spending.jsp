@@ -64,6 +64,12 @@
             $('#infoSelect').attr("value", s);
         }
 
+        function selectItem(element)
+        {
+            $('#typeProfit').val(element.innerHTML);
+            var s = $(element).closest(".seacher").children("span").html();
+            $('#parrentLI').attr("value", s);
+        }
         function initialize() {
             var mapOptions = {
                 zoom: 8,
@@ -142,21 +148,113 @@
             <div class="form-group">
                 <label for="money">Кількість потрачених грошей</label>
                 <input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
-
             </div>
-           <label for="date">Тип витрат</label>
-            <select class="form-control" id="clr" onchange="checkedSelect()">
-                <option selected>Їжа</option>
-                <option>Одяг</option>
-                <option>Розваги</option>
-                <option>Подарунки</option>
-            </select>
-            <br>
-           <div class="form-group">
-               <label for="date">Дата події</label>
-               <input type="date" name="tel_reg" id="date" class="form-control" placeholder="Дата події" required>
-           </div>
 
+            <div class="form-group">
+                <label for="dates">Дата події</label>
+                <input type="date" name="dates" id="date" class="form-control" placeholder="Дата події" required>
+            </div>
+
+            <style>
+                ul {
+                    list-style: none;
+                }
+
+                #mainul > ul {
+                    display: none;
+                }
+
+                #mainul:hover > ul {
+                    display: block;
+                }
+
+                #mainul > ul > li > ul {
+                    display: none;
+                }
+
+                #mainul > ul > li:hover > ul {
+                    display: block;
+                }
+
+                .colorGD {
+                    background-color: #EBEBEB;
+                    cursor: pointer;
+
+                }
+                .colorGU {
+                    background-color: #D7D6D0;
+                    cursor: pointer;
+                    border: 1px black solid;
+                }
+            </style>
+
+
+            <div id="mainul">
+                <span class="colorGD">Виберіть тип витрат</span>
+                <ul>
+                    <li class="seacher">
+                        <span class="colorGD">Їжа</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Продукти</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Ресторан</span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="seacher">
+                        <span class="colorGD">Одяг</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Взуття</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Штани</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Рубашки</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Верхній одяг</span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="seacher">
+                        <span class="colorGD">Подарунки</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Іграшки</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Прикраси</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Квіти</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="seacher">
+                        <span class="colorGD">Розваги</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Атракціони</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Кінотеатр</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <input name="typeProfit" type="text" class="form-control" id="typeProfit" placeholder="Тип"/>
+            </div>
+            <br>
 
             <br>
             <button type="submit" class="btn btn-success" >Додати</button>

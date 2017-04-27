@@ -54,7 +54,9 @@
             <input type="date" name="tel_reg" id="date" class="form-control" placeholder="День народження" required>
         </div>
 
+<%--
         <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Приклад</button></a>
+--%>
         <a href="<c:url value="/expenses"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
         <button type="submit" class="btn btn-success">Реєстрація</button>
     </form>

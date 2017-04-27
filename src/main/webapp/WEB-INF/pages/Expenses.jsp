@@ -15,11 +15,9 @@
     <meta charset="utf-8">
     <style>
         #lat_div {
-            display: none;
         }
 
         #long_div{
-            display: none;
         }
 
 
@@ -43,6 +41,39 @@
         body{
             background-color: beige; /* Цвет фона веб-страницы */
         }
+
+         ul {
+             list-style: none;
+         }
+
+        #mainul > ul {
+            display: none;
+        }
+
+        #mainul:hover > ul {
+            display: block;
+        }
+
+        #mainul > ul > li > ul {
+            display: none;
+        }
+
+        #mainul > ul > li:hover > ul {
+            display: block;
+        }
+
+        .colorGD {
+            background-color: #8aeb97;
+            cursor: pointer;
+
+        }
+        .colorGU {
+            background-color: #deffa0;
+            cursor: pointer;
+           // color: lemonchiffon;
+            border: 1px #fffa00 solid;
+        }
+
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLg8g0NKwIwwgCCkd26kRe4ZLS0dpIg7A&sensor=false"></script>
     <script>
@@ -74,6 +105,12 @@
             google.maps.event.addListener(map, 'click', function(event) {
                 addMarker(event.latLng);
             });
+        }
+        function selectItem(element)
+        {
+            $('#typeProfit').val(element.innerHTML);
+            var s = $(element).closest(".seacher").children("span").html();
+            $('#parrentLI').attr("value", s);
         }
 
         function addMarker(location) {
@@ -123,55 +160,97 @@
 
         <div class="form-group">
             <label for="text_adres">Адреса</label>
-<%--
-            <input path="address" type="text" class="form-control" id="text_adres" placeholder="Поставте маркер на карті" disabled/>
---%>
             <input name="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
         </div>
 
         <div class="form-group" id="lat_div">
             <label for="lat">Широта</label>
             <input name="lat" type="text" class="form-control" id="lat" placeholder="Широта"/>
-                <%--
-                                <form:input path="lat" type="hidden" class="form-control" id="lat" placeholder="Широта"/>
-                --%>
         </div>
 
         <div class="form-group" id="long_div">
             <label for="long">Довгота</label>
             <input name="long" type="text" class="form-control" id="long" placeholder="Довгота"/>
-                <%--
-                                <form:input path="long" type="hidden" class="form-control" id="long" placeholder="Довгота"/>
-                --%>
         </div>
 
         <div class="form-group">
             <label for="money">Кількість потрачених грошей</label>
             <input name="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
-                <%--
-                                <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
-                --%>
         </div>
-        <label for="date">Тип витрат</label>
-        <select class="form-control" id="clr" onchange="checkedSelect()">
-            <option selected>Їжа</option>
-            <option>Одяг</option>
-            <option>Розваги</option>
-            <option>Подарунки</option>
-        </select>
-        <br>
+
         <div class="form-group">
             <label for="date">Дата події</label>
-            <input type="date" name="tel_reg" id="date" class="form-control" placeholder="Дата події" required>
+            <input type="date" name="date_name" id="date" class="form-control" placeholder="Дата події" required>
         </div>
 
+        <div id="mainul">
+            <b><span class="colorGD">Виберіть тип витрат</span></b>
+            <ul>
+                <li class="seacher">
+                    <span class="colorGD">Їжа</span>
+                    <ul>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Продукти</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Ресторан</span>
+                        </li>
+                    </ul>
+                </li>
 
-        <input name="types" type="hidden" class="form-control" id="infoSelect" value="їжа"/>
+                <li class="seacher">
+                    <span class="colorGD">Одяг</span>
+                    <ul>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Взуття</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Штани</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Рубашки</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Верхній одяг</span>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="seacher">
+                    <span class="colorGD">Подарунки</span>
+                    <ul>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Іграшки</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Прикраси</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Квіти</span>
+                        </li>
+                    </ul>
+                </li>
+                <li class="seacher">
+                    <span class="colorGD">Розваги</span>
+                    <ul>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Атракціони</span>
+                        </li>
+                        <li>
+                            <span class="colorGU" onclick="selectItem(this)">Кінотеатр</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="form-group">
+            <input  name="parentTag" type="hidden"  id="parrentLI" class="form-control" value="type">
+            <input  name="childrenTag" type="text" class="form-control" id="typeProfit" placeholder="Тип"/>
+        </div>
+
         <br>
         <button type="submit" class="btn btn-success" >Додати</button>
-        <%--
-                    <a href="<c:url value="/sendingData"/>" target="_blank">
-        --%>
         <a href="" target="_blank">
             <button type="button" class="btn btn-success">Переглянути додане</button>
         </a>
