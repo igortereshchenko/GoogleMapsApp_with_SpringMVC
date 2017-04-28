@@ -21,7 +21,6 @@
         }
 
 
-
         #map-canvas {
             margin-top: 5%;
             margin-left: 15%;
@@ -244,6 +243,7 @@
             </ul>
         </div>
         <br>
+
         <div class="form-group">
             <input  name="parentTag" type="hidden"  id="parrentLI" class="form-control" value="type">
             <input  name="childrenTag" type="text" class="form-control" id="typeProfit" placeholder="Тип"/>
