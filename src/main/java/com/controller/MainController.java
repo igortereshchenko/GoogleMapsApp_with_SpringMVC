@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
@@ -58,7 +60,6 @@ public class MainController {
 
         PlacePointDao placePointDao = new PlacePointDaoImpl();
         placePointDao.addPlacePoint(addres_str, lat_double, long_double, amount_int, TagNameFk, TagName, date_sql);
-
         System.out.println("finish");
         return "redirect:/expenses";
     }

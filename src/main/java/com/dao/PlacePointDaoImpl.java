@@ -125,7 +125,7 @@ public class PlacePointDaoImpl implements PlacePointDao{
 
             PreparedStatement preparedStatement = null;
             preparedStatement = connection1.prepareStatement("INSERT INTO " +
-                    "USEREXPENSES (USER_PHONE_FK,PLACEPOINT_ID_FK,USEREXPERSES_DATE,userexpenses_count, USEREXPENSES_ID) " +
+                    "USEREXPENSES (USER_PHONE_FK,PLACEPOINT_ID_FK,USEREXPERSES_DATE, userexpenses_count, USEREXPENSES_ID) " +
                     "VALUES (?,?,?,?,?)");
             System.out.println("11");
             preparedStatement.setInt(1, 777);

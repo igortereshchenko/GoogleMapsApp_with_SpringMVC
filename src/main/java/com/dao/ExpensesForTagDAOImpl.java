@@ -19,11 +19,14 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
             System.out.println("F = " + date_first);
             System.out.println("S = " + date_second);
 
-
             Statement statement = null;
             statement = getDBConnection().createStatement();
             System.out.println("1");
-            ResultSet rs = statement.executeQuery("select USEREXPERSESCOUNT, TAG_NAME from TABLE(userExpenses_pkg.GetUserExpenses1('01-APR-17', '30-APR-17', 777))");
+            PreparedStatement preparedStatement = getDBConnection().prepareStatement("select USEREXPERSESCOUNT, TAG_NAME from TABLE(userExpenses_pkg.GetUserExpenses1(?, ?, ?))");
+            preparedStatement.setDate(1,date_first);
+            preparedStatement.setDate(2,date_second);
+            preparedStatement.setInt(3,777);
+            ResultSet rs = preparedStatement.executeQuery();
             System.out.println("2");
             while (rs.next()) {
                 int count = rs.getInt(1);
