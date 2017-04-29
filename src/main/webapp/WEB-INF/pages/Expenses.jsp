@@ -15,9 +15,11 @@
     <meta charset="utf-8">
     <style>
         #lat_div {
+            display: none;
         }
 
         #long_div{
+            display: none;
         }
 
 
@@ -32,7 +34,7 @@
             margin-top: 5%;
             margin-right: 15%;
             border: solid 1px black;
-            padding: 3%;
+            padding: 2%;
             float: right;
             background-color: lemonchiffon;
         }
@@ -249,12 +251,16 @@
             <input  name="childrenTag" type="text" class="form-control" id="typeProfit" placeholder="Тип"/>
         </div>
 
-        <br>
         <button type="submit" class="btn btn-success" >Додати</button>
-        <a href="" target="_blank">
-            <button type="button" class="btn btn-success">Переглянути додане</button>
-        </a>
     </form:form>
+
+
+   <%-- <a href="" target="_blank">
+        <button type="button" class="btn btn-success">Кабінет користувач</button>
+    </a>--%>
+        <a href="<c:url value="/expenses/possibility"/>" ><button type="button" class="btn btn-success">Кабінет користувачa</button></a>
+
+
 </div>
 
 </body>

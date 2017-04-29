@@ -151,7 +151,7 @@
             </div>
 
             <div class="form-group">
-                <label for="dates">Дата події</label>
+                <label for="date">Дата події</label>
                 <input type="date" name="dates" id="date" class="form-control" placeholder="Дата події" required>
             </div>
 

@@ -1,17 +1,16 @@
 package com.controller;
 
+import com.dao.ExpensesForTagDAOImpl;
 import com.dao.PlacePointDao;
 import com.dao.PlacePointDaoImpl;
-import com.model.Spending;
-import com.model.UserExpenses;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.util.Map;
 
 /**
  * Created by Ichanskiy on 2017-04-26.
@@ -62,6 +61,32 @@ public class MainController {
 
         System.out.println("finish");
         return "redirect:/expenses";
+    }
+
+    @RequestMapping(value = "/expenses/possibility", method = RequestMethod.GET)
+    public String showInfoPage(){
+
+        return "possibilityUser";
+    }
+
+    @RequestMapping(value = "/expenses/possibility/dateInfo", method = RequestMethod.POST)
+    public String showInfoDate(HttpServletRequest request, Model model){
+        Object firstDateObj = request.getParameter("date_first");
+        Object secondDateObj = request.getParameter("date_second");
+
+        String date_first_str = (String) firstDateObj;
+        String date_second_str = (String) secondDateObj;
+        Date date_first = Date.valueOf(date_first_str);
+        Date date_second = Date.valueOf(date_second_str);
+
+        System.out.println("F = " + date_first);
+        System.out.println("S = " + date_second);
+        ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();
+
+        Map<String, Integer> hashMap;
+        hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second );
+        model.addAttribute("hashMap", hashMap);
+        return "infoDatePage";
     }
 
 }
