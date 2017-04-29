@@ -17,19 +17,29 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
+        #lat_div {
+        }
+
+        #long_div{
+        }
+
+
         #map-canvas {
-            margin: 5%;
+            margin-top: 5%;
+            margin-left: 15%;
             padding: 16%;
             float: left;
             border: solid 1px black;
         }
         #field_div{
-            margin: 5%;
+            margin-top: 5%;
+            margin-right: 15%;
             border: solid 1px black;
-            padding: 5%;
+            padding: 3%;
             float: right;
             background-color: lemonchiffon;
         }
+
         body{
             background-color: beige; /* Цвет фона веб-страницы */
         }
@@ -44,11 +54,22 @@
             $('#text_adres').val(adr);
         }
 
+        function addCoord(location) {
+            $('#long').val(location.lng());
+            $('#lat').val(location.lat());
+        }
+
         function checkedSelect() {
             var s = $('#clr :selected').text();
             $('#infoSelect').attr("value", s);
         }
 
+        function selectItem(element)
+        {
+            $('#typeProfit').val(element.innerHTML);
+            var s = $(element).closest(".seacher").children("span").html();
+            $('#parrentLI').attr("value", s);
+        }
         function initialize() {
             var mapOptions = {
                 zoom: 8,
@@ -70,6 +91,9 @@
             });
             geocoder.geocode({latLng:location}, function (results, status) {
                 var addr = '';
+
+                addCoord(location);
+
                 if(status == 'OK') {
                     if(results.length == 0) {
                         addr = 'None';
@@ -100,31 +124,143 @@
     <div id="map-canvas"></div>
 
     <div id= "field_div">
-        <c:url var="addAction" value="/spending/add"/>
+       <c:url var="addAction" value="/spending/add"/>
         <form:form action="${addAction}" commandName="spending">
 
             <div class="form-group">
-                <label for="text">Адреса</label>
-                <form:input path="address" type="text" class="form-control" id="text_adres" placeholder="Введіть адресу"/>
+                <label for="text_adres">Адреса</label>
+                <input path="address" type="text" class="form-control" id="text_adres" placeholder="Поставте маркер на карті" disabled/>
+
             </div>
+
+            <div class="form-group" id="lat_div">
+                <label for="lat">Широта</label>
+                <input path="lat" type="text" class="form-control" id="lat" placeholder="Широта"/>
+
+            </div>
+
+            <div class="form-group" id="long_div">
+                <label for="long">Довгота</label>
+                <input path="long" type="text" class="form-control" id="long" placeholder="Довгота"/>
+
+            </div>
+
             <div class="form-group">
-                <label for="text">Кількість потрачених грошей</label>
-                <form:input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
+                <label for="money">Кількість потрачених грошей</label>
+                <input path="amount" type="number" class="form-control" id="money" value="0" min="1" max="40000" step="1" />
             </div>
 
-            <select class="form-control" id="clr" onchange="checkedSelect()">
-                <option selected>Їжа</option>
-                <option>Одяг</option>
-                <option>Розваги</option>
-                <option>Подарунки</option>
-            </select>
+            <div class="form-group">
+                <label for="date">Дата події</label>
+                <input type="date" name="dates" id="date" class="form-control" placeholder="Дата події" required>
+            </div>
 
-            <form:input path="types" type="hidden" class="form-control" id="infoSelect"/>
+            <style>
+                ul {
+                    list-style: none;
+                }
+
+                #mainul > ul {
+                    display: none;
+                }
+
+                #mainul:hover > ul {
+                    display: block;
+                }
+
+                #mainul > ul > li > ul {
+                    display: none;
+                }
+
+                #mainul > ul > li:hover > ul {
+                    display: block;
+                }
+
+                .colorGD {
+                    background-color: #EBEBEB;
+                    cursor: pointer;
+
+                }
+                .colorGU {
+                    background-color: #D7D6D0;
+                    cursor: pointer;
+                    border: 1px black solid;
+                }
+            </style>
+
+
+            <div id="mainul">
+                <span class="colorGD">Виберіть тип витрат</span>
+                <ul>
+                    <li class="seacher">
+                        <span class="colorGD">Їжа</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Продукти</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Ресторан</span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="seacher">
+                        <span class="colorGD">Одяг</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Взуття</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Штани</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Рубашки</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Верхній одяг</span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="seacher">
+                        <span class="colorGD">Подарунки</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Іграшки</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Прикраси</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Квіти</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="seacher">
+                        <span class="colorGD">Розваги</span>
+                        <ul>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Атракціони</span>
+                            </li>
+                            <li>
+                                <span class="colorGU" onclick="selectItem(this)">Кінотеатр</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <input name="typeProfit" type="text" class="form-control" id="typeProfit" placeholder="Тип"/>
+            </div>
+            <br>
 
             <br>
             <button type="submit" class="btn btn-success" >Додати</button>
-            <a href="<c:url value="/sendingData"/>" target="_blank">
-            <button type="button" class="btn btn-success"  >Переглянути додане</button>
+
+           <a href="" target="_blank">
+            <button type="button" class="btn btn-success">Переглянути додане</button>
             </a>
          </form:form>
 </div>
