@@ -3,6 +3,8 @@ package com.controller;
 import com.dao.ExpensesForTagDAOImpl;
 import com.dao.PlacePointDao;
 import com.dao.PlacePointDaoImpl;
+import com.model.AllExpensesClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +22,7 @@ import java.util.Map;
  */
 @Controller
 public class MainController {
+
 
     @RequestMapping(value = "expenses", method = RequestMethod.GET)
     public String listExpenses(Model model) {
@@ -88,6 +92,17 @@ public class MainController {
         hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second );
         model.addAttribute("hashMap", hashMap);
         return "infoDatePage";
+    }
+
+
+    @RequestMapping(value = "/expenses/possibility/allExpenses", method = RequestMethod.GET)
+    public String showInfoDate(Model model) {
+
+
+        ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();
+        List<AllExpensesClass> allExpensesClassesList = expensesForTagDAO.getAllExpenses();
+        model.addAttribute("allExpensesClassesList",allExpensesClassesList);
+        return "allExpenses";
     }
 
 }

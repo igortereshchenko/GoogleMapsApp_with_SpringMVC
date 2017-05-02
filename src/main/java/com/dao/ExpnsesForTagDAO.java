@@ -1,6 +1,9 @@
 package com.dao;
 
+import com.model.AllExpensesClass;
+
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,4 +11,5 @@ import java.util.Map;
  */
 public interface ExpnsesForTagDAO {
     public Map<String, Integer> getExpensesForTag( Date d1, Date d2);
+    public List<AllExpensesClass> getAllExpenses();
 }

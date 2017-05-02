@@ -47,6 +47,7 @@
         <label for="date_first">Період з: </label>
         <input type="date" name="date_first" id="date_first"  class="form-control" placeholder="Дата події" />
     </div>
+
     <div class="form-group">
         <label for="date_second">по: </label>
         <input type="date" name="date_second" id="date_second"  class="form-control" placeholder="Дата події" />
@@ -55,8 +56,13 @@
     <a href="" target="_blank">
         <button type="submit" class="btn btn-success">Переглянути</button>
     </a>
+
+    </form:form>
+
+    <a href="<c:url value="/expenses/possibility/allExpenses"/>" target="_blank" ><button type="button" class="btn btn-success">Переглянути всі витрати</button></a>
+
 </div>
-</form:form>
+
 
 </body>
 </html>
