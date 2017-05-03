@@ -17,20 +17,20 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
 
 
     @Override
-    public Map<String, Integer> getExpensesForTag(Date date_first, Date date_second) {
+    public Map<String, Integer> getExpensesForTag(Date date_first, Date date_second, int phone) {
         Map<String, Integer> hashMap = new HashMap<String, Integer>();
         try {
 
             System.out.println("F = " + date_first);
             System.out.println("S = " + date_second);
-
+            System.out.println("phones " + phone);
             Statement statement = null;
             statement = getDBConnection().createStatement();
             System.out.println("1");
             PreparedStatement preparedStatement = getDBConnection().prepareStatement("select USEREXPERSESCOUNT, TAG_NAME from TABLE(userExpenses_pkg.GetUserExpenses1(?, ?, ?))");
-            preparedStatement.setDate(1,date_first);
-            preparedStatement.setDate(2,date_second);
-            preparedStatement.setInt(3,777);
+            preparedStatement.setDate(1, date_first);
+            preparedStatement.setDate(2, date_second);
+            preparedStatement.setInt(3, phone);
             ResultSet rs = preparedStatement.executeQuery();
             System.out.println("2");
             while (rs.next()) {
@@ -60,7 +60,7 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
 
 
     @Override
-    public List<AllExpensesClass> getAllExpenses() {
+    public List<AllExpensesClass> getAllExpenses(int phone) {
 
          List<AllExpensesClass> allExpensesClassesList = new ArrayList<AllExpensesClass>();
         try {
@@ -72,7 +72,7 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
             System.out.println("1");
             PreparedStatement preparedStatement = getDBConnection().prepareStatement("select PLACEPOINT_ADDRESS, TAG_NAME, EXPENSES_DATE" +
                                                                                             " from TABLE(userExpenses_pkg.GetUserExpenses3(?))");
-            preparedStatement.setInt(1,777);
+            preparedStatement.setInt(1, phone);
 
             ResultSet rs = preparedStatement.executeQuery();
             System.out.println("2");

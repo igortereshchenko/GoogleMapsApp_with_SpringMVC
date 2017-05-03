@@ -23,17 +23,23 @@ import java.util.Map;
 @Controller
 public class MainController {
 
+    @RequestMapping(value = "/LogIn", method = RequestMethod.GET)
+    public String LogIn(Model model) {
+        return "LogIn";
+    }
 
-    @RequestMapping(value = "expenses", method = RequestMethod.GET)
-    public String listExpenses(Model model) {
-        //model.addAttribute("spending", new Spending());
+    @RequestMapping(value = "expenses", method = RequestMethod.POST)
+    public String listExpenses(Model model, HttpServletRequest request) {
+        Object o = request.getParameter("tel_reg");
+        String phone = (String) o;
+        request.getSession().setAttribute("phone", phone);
         return "Expenses";
     }
 
 
     @RequestMapping(value = "/expenses/add", method = RequestMethod.POST)
     public String addExpenses(HttpServletRequest request){
-
+        System.out.println("phone" + request.getSession().getAttribute("phone"));
         Object add = request.getParameter("address");
         Object lat = request.getParameter("lat");
         Object longg = request.getParameter("long");
@@ -42,6 +48,8 @@ public class MainController {
         Object parentTag = request.getParameter("parentTag");
         Object childrenTag = request.getParameter("childrenTag");
 
+        String phone_str = (String) request.getSession().getAttribute("phone");
+        int phone = Integer.parseInt(phone_str);
         String addres_str = (String) add;
         String lat_str = (String) lat;
         double lat_double = Double.parseDouble(lat_str);
@@ -63,7 +71,7 @@ public class MainController {
         System.out.println("C date" + date_sql);
 
         PlacePointDao placePointDao = new PlacePointDaoImpl();
-        placePointDao.addPlacePoint(addres_str, lat_double, long_double, amount_int, TagNameFk, TagName, date_sql);
+        placePointDao.addPlacePoint(addres_str, lat_double, long_double, amount_int, TagNameFk, TagName, date_sql, phone);
         System.out.println("finish");
         return "redirect:/expenses";
     }
@@ -84,23 +92,28 @@ public class MainController {
         Date date_first = Date.valueOf(date_first_str);
         Date date_second = Date.valueOf(date_second_str);
 
-        System.out.println("F = " + date_first);
-        System.out.println("S = " + date_second);
+        //System.out.println("F = " + date_first);
+        //System.out.println("S = " + date_second);
         ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();
 
+        String phone_str = (String) request.getSession().getAttribute("phone");
+        int phone = Integer.parseInt(phone_str);
+        System.out.println("phone " + phone);
         Map<String, Integer> hashMap;
-        hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second );
+        hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second , phone);
         model.addAttribute("hashMap", hashMap);
         return "infoDatePage";
     }
 
 
     @RequestMapping(value = "/expenses/possibility/allExpenses", method = RequestMethod.GET)
-    public String showInfoDate(Model model) {
+    public String showInfoDate(Model model, HttpServletRequest request) {
 
-
+        String phone_str = (String) request.getSession().getAttribute("phone");
+        int phone = Integer.parseInt(phone_str);
+        System.out.println("phone " + phone);
         ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();
-        List<AllExpensesClass> allExpensesClassesList = expensesForTagDAO.getAllExpenses();
+        List<AllExpensesClass> allExpensesClassesList = expensesForTagDAO.getAllExpenses(phone);
         model.addAttribute("allExpensesClassesList",allExpensesClassesList);
         return "allExpenses";
     }
