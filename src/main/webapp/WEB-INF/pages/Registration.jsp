@@ -57,7 +57,7 @@
         <%--
                 <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Приклад</button></a>
         --%>
-        <a href="<c:url value="/expenses"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
+        <a href="<c:url value="/LogIn"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
         <button type="submit" class="btn btn-success">Реєстрація</button>
     </form>
 </div>

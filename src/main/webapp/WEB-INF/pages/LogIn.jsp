@@ -37,7 +37,7 @@
     <form:form action="${addAction4}">
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" value="ichanskiy.olexandr@gmail.com" placeholder="Введіть email" required pattern="(\W|^)[\w.+\-]{0,25}@(yahoo|hotmail|gmail|i)\.com(\W|$)">
+            <input type="email" class="form-control" name="email" id="email" value="ichanskiy.olexandr@gmail.com" placeholder="Введіть email" required pattern="(\W|^)[\w.+\-]{0,25}@(yahoo|hotmail|gmail|i)\.com(\W|$)">
         </div>
 
         <div class="form-group">
@@ -45,11 +45,10 @@
 <%--
             <input type="tel" name="tel_reg" id="tel" class="form-control" placeholder="Мобільний телефон" required>
 --%>
-            <input type="tel" name="tel_reg" class="form-control" placeholder="Мобільний телефон">
+            <input type="tel" name="tel_reg" class="form-control" placeholder="Мобільний телефон" required>
         </div>
-
         <button type="submit" class="btn btn-success">Увійти</button>
-         <a href="<c:url value="/expenses"/>" ><button type="submit" class="btn btn-success">Реєстрація</button></a>
+        <a href="<c:url value="/registration"/>" ><button type="button" class="btn btn-success">Зареєструватися</button></a>
     </form:form>
 </div>
 

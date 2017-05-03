@@ -3,6 +3,7 @@ package com.controller;
 import com.dao.ExpensesForTagDAOImpl;
 import com.dao.PlacePointDao;
 import com.dao.PlacePointDaoImpl;
+import com.dao.UserFunctionDaoImpl;
 import com.model.AllExpensesClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,24 @@ public class MainController {
         return "LogIn";
     }
 
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        return "Registration";
+    }
+
+
     @RequestMapping(value = "expenses", method = RequestMethod.POST)
     public String listExpenses(Model model, HttpServletRequest request) {
-        Object o = request.getParameter("tel_reg");
-        String phone = (String) o;
+        Object tel_reg_obj = request.getParameter("tel_reg");
+        int phone = Integer.parseInt((String) tel_reg_obj);
+
+        Object email_obj = request.getParameter("email");
+        String email = String.valueOf(email_obj);
+        UserFunctionDaoImpl userFunctionDao = new UserFunctionDaoImpl();
+
+        if (!userFunctionDao.LogInUser(email, phone)) {
+            return "Error";
+        }
         request.getSession().setAttribute("phone", phone);
         return "Expenses";
     }
