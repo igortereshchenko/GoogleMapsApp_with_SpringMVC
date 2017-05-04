@@ -9,8 +9,35 @@ import static com.Connection.ConDB.getDBConnection;
  */
 public class UserFunctionDaoImpl implements UserFunctionDao {
     @Override
-    public void addUser(String name, String email, int phone, Date birthday) {
+    public boolean addUser(String name, String email, int phone, Date birthday) {
+        boolean a = false;
+        try {
+            UserFunctionDaoImpl userFunctionDao = new UserFunctionDaoImpl();
+            a = userFunctionDao.LogInUser(email,phone);
 
+            if (!a) {
+                Connection connectionAddUser = getDBConnection();
+                PreparedStatement preparedStatement = connectionAddUser.prepareStatement("INSERT INTO " +
+                        "USERS (USER_PHONE, USER_NAME, USER_EMAIL, USER_BIRTHDATE) " +
+                        "VALUES (?,?,?,?)");
+                System.out.println("2");
+                preparedStatement.setInt(1, phone);
+                System.out.println("3");
+                preparedStatement.setString(2, name);
+                System.out.println("4");
+                preparedStatement.setString(3, email);
+                System.out.println("5");
+                preparedStatement.setDate(4, birthday);
+                System.out.println("6");
+                preparedStatement.executeUpdate();
+                System.out.println("7");
+                preparedStatement.close();
+                System.out.println("insert into User");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     @Override
@@ -25,14 +52,14 @@ public class UserFunctionDaoImpl implements UserFunctionDao {
             while (rs.next()) {
 
                 String select_email = rs.getString(1);
-                System.out.println("select_email " + select_email);
+              //  System.out.println("select_email " + select_email);
                 int select_phone = rs.getInt(2);
-                System.out.println("select_phone " + select_phone);
+               // System.out.println("select_phone " + select_phone);
 
 
                 if ((select_email.equals(email)) && (select_phone == phone)) {
-                    System.out.println("phone ");
-                    System.out.println("email ");
+                    System.out.println("phone " + phone);
+                    System.out.println("email " + email);
                     a = true;
                 }
             }

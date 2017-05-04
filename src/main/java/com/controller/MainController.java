@@ -34,10 +34,44 @@ public class MainController {
         return "Registration";
     }
 
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(Model model, HttpServletRequest request) {
+        Object name_user = request.getParameter("name_user");
+        Object email_user = request.getParameter("email_user");
+        Object tel_user = request.getParameter("tel_user");
+        Object birthday_user = request.getParameter("birthday_user");
+
+        String name_user_str = String.valueOf(name_user);
+        String email_user_str = String.valueOf(email_user);
+        String tel_user_str = String.valueOf(tel_user);
+        int tel_user_int = Integer.parseInt(tel_user_str);
+        String birthday_user_str = String.valueOf(birthday_user);
+        Date birthday_user_date = Date.valueOf(birthday_user_str);
+
+        System.out.println("n = " + name_user_str);
+        System.out.println("e = " + email_user_str);
+        System.out.println("t = " + tel_user_str);
+        System.out.println("b = " + birthday_user_date);
+
+        UserFunctionDaoImpl userFunctionDao = new UserFunctionDaoImpl();
+        boolean a  =  userFunctionDao.addUser(name_user_str, email_user_str,tel_user_int,birthday_user_date);
+        if (a) {
+            return "Error";
+        }
+        System.out.println("finish");
+
+        return "LogIn";
+    }
+
+    @RequestMapping(value = "expenses", method = RequestMethod.GET)
+    public String listExpensess(Model model, HttpServletRequest request) {
+        return "Expenses";
+    }
 
     @RequestMapping(value = "expenses", method = RequestMethod.POST)
     public String listExpenses(Model model, HttpServletRequest request) {
         Object tel_reg_obj = request.getParameter("tel_reg");
+        String phone_str = (String) tel_reg_obj;
         int phone = Integer.parseInt((String) tel_reg_obj);
 
         Object email_obj = request.getParameter("email");
@@ -47,14 +81,14 @@ public class MainController {
         if (!userFunctionDao.LogInUser(email, phone)) {
             return "Error";
         }
-        request.getSession().setAttribute("phone", phone);
+        request.getSession().setAttribute("phone", phone_str);
+        System.out.println( "set session phone " + request.getSession().getAttribute("phone"));
         return "Expenses";
     }
 
 
     @RequestMapping(value = "/expenses/add", method = RequestMethod.POST)
-    public String addExpenses(HttpServletRequest request){
-        System.out.println("phone" + request.getSession().getAttribute("phone"));
+    public String addExpenses(Model model, HttpServletRequest request){
         Object add = request.getParameter("address");
         Object lat = request.getParameter("lat");
         Object longg = request.getParameter("long");
@@ -63,12 +97,18 @@ public class MainController {
         Object parentTag = request.getParameter("parentTag");
         Object childrenTag = request.getParameter("childrenTag");
 
-        String phone_str = (String) request.getSession().getAttribute("phone");
-        int phone = Integer.parseInt(phone_str);
+        Object o = request.getSession().getAttribute("phone");
+        String phone_str = (String) o;
+        System.out.println("phonnnnn " + phone_str);
+        System.out.println("000");
         String addres_str = (String) add;
+        System.out.println("1");
         String lat_str = (String) lat;
+        System.out.println("2");
         double lat_double = Double.parseDouble(lat_str);
+        System.out.println("3");
         String longg_str = (String) longg;
+        System.out.println("4");
         double long_double = Double.parseDouble((String) longg);
         String amount_str = (String) amount;
         String TagNameFk = (String) parentTag;
@@ -84,7 +124,8 @@ public class MainController {
         System.out.println("C TGNFK" + TagNameFk);
         System.out.println("C TGN" + TagName);
         System.out.println("C date" + date_sql);
-
+        //int phone = 777;
+        int phone = Integer.parseInt(phone_str);
         PlacePointDao placePointDao = new PlacePointDaoImpl();
         placePointDao.addPlacePoint(addres_str, lat_double, long_double, amount_int, TagNameFk, TagName, date_sql, phone);
         System.out.println("finish");
@@ -102,6 +143,9 @@ public class MainController {
         Object firstDateObj = request.getParameter("date_first");
         Object secondDateObj = request.getParameter("date_second");
 
+        Object o = request.getSession().getAttribute("phone");
+        String phone_str = (String) o;
+
         String date_first_str = (String) firstDateObj;
         String date_second_str = (String) secondDateObj;
         Date date_first = Date.valueOf(date_first_str);
@@ -111,9 +155,9 @@ public class MainController {
         //System.out.println("S = " + date_second);
         ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();
 
-        String phone_str = (String) request.getSession().getAttribute("phone");
         int phone = Integer.parseInt(phone_str);
-        System.out.println("phone " + phone);
+        System.out.println("phone = " + phone);
+        //int phone = 777;
         Map<String, Integer> hashMap;
         hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second , phone);
         model.addAttribute("hashMap", hashMap);
@@ -124,7 +168,9 @@ public class MainController {
     @RequestMapping(value = "/expenses/possibility/allExpenses", method = RequestMethod.GET)
     public String showInfoDate(Model model, HttpServletRequest request) {
 
-        String phone_str = (String) request.getSession().getAttribute("phone");
+        //int phone = 777;
+        Object o = request.getSession().getAttribute("phone");
+        String phone_str = (String) o;
         int phone = Integer.parseInt(phone_str);
         System.out.println("phone " + phone);
         ExpensesForTagDAOImpl expensesForTagDAO = new ExpensesForTagDAOImpl();

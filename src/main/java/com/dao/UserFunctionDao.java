@@ -7,6 +7,6 @@ import java.sql.Date;
  */
 public interface UserFunctionDao {
 
-    public void addUser(String name, String email, int phone, Date birthday);
-    public boolean LogInUser(String email, int phone);
+    boolean addUser(String name, String email, int phone, Date birthday);
+    boolean LogInUser(String email, int phone);
 }
