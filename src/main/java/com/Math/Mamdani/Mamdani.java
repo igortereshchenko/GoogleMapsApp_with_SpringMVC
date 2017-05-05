@@ -1,4 +1,4 @@
-package Mamdani;
+package com.Math.Mamdani;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -76,5 +76,5 @@ public class Mamdani {
             }
         }
         return findKey;
-    };
+    }
 }
