@@ -17,54 +17,97 @@ public class CommisVoyageur {
        // System.out.println(p());
 
         List<String> pointList = p1();
-        for (int i = 0; i < pointList.size(); i++) {
-            String a = String.valueOf(pointList.get(0));
-            String b = String.valueOf(pointList.get(1));
-            System.out.println(getDistanse(a,b));
+        List<String> sortList = p1();
+        int sizeList = pointList.size();
+        System.out.println(sizeList);
+
+       double C[][] = new double[sizeList][sizeList];
+
+        for (int i = 1; i < sizeList; i++) {
+            for (int j = 1; j < sizeList ; j++) {
+                if (i==j){
+                    C[i][j] = 0;
+                }
+
+                if(i<j){
+                    String a = String.valueOf(pointList.get(i));
+                    String b = String.valueOf(pointList.get(j));
+                    //System.out.println(getDistanse(a,b));
+                    double d = getDistanse(a,b);
+                    C[i][j] = d;
+                }
+
+                if (j<i){
+                    String a = String.valueOf(pointList.get(j));
+                    String b = String.valueOf(pointList.get(i));
+                    //System.out.println(getDistanse(a,b));
+                    double d = getDistanse(a,b);
+                    C[i][j] = d;
+                }
+            }
         }
-    }
+
+        for (int i = 1; i < sizeList; i++) {
+            // Цикл по второй размерности выводит колонки - вывод одной строки
+            for (int j = 1; j < sizeList; j++) {
+                // Используем оператор print - без перехода на следующую строку
+                System.out.print(C[i][j] + "         ");
+            }
+            // Переход на следующую строку
+            System.out.println();
+        }
+
+        Route tspNearestNeighbour = new Route();
+        List<Integer> rout = tspNearestNeighbour.tsp(C);
+       // System.out.println(rout);
+        pointList.remove(0);
+        sortList.remove(0);
+
+
+        System.out.println("rout");
+            for (int i = 0; i < pointList.size()-1; i++) {
+            System.out.println("i = " + i + "-->" + rout.get(i));
+        }
+
+        System.out.println("point");
+        for (int i = 0; i < rout.size(); i++) {
+            System.out.println("i = " + i + "-->" + pointList.get(i));
+        }
+
+       /* System.out.println(pointList.size());
+        System.out.println(rout.size());
+        System.out.println(sortList.size());*/
+
+
+
+        for (int i = 0;  i < pointList.size(); i++) {
+            int key = rout.get(i) - 1;
+            System.out.println("k " + key);
+            if (key == pointList.size()){
+                continue;
+            }
+            String value = pointList.get(i);
+            System.out.println("v " + value);
+            sortList.set(key,value);
+            //System.out.println(sortList);
+        }
+
+        System.out.println("sort");
+        for (int i = 0; i < sortList.size(); i++) {
+            System.out.println("i = " + i + " --> " + sortList.get(i));
+        }    }
 
     public static List<String> p1() {
         List<String> pointList = new ArrayList<String>();
-        pointList.add("вулиця Героїв Севастополя, 65, Київ, Украина");
-        pointList.add("вулиця Сергія Колоса, 2А, Київ, Украина");
-        pointList.add("вулиця Верховинна, 68, Київ, Украина");
-        pointList.add("вулиця Михайла Ломоносова, 40-42, Київ, Украина");
+        pointList.add(0,"0");
+        pointList.add(1,"вулиця Героїв Севастополя, 65, Київ, Украина");
+        pointList.add(2,"вулиця Сергія Колоса, 2А, Київ, Украина");
+        pointList.add(3,"вулиця Верховинна, 68, Київ, Украина");
+        pointList.add(4,"вулиця Михайла Ломоносова, 40-42, Київ, Украина");
+        pointList.add(5,"Брянська вулиця, 15, Київ, Украина");
         return pointList;
     }
 
 
-    public static List<PlacePoint> p(){
 
-        List<PlacePoint> pointList = new ArrayList<PlacePoint>();
-
-        PlacePoint placePoint = new PlacePoint();
-        placePoint.setPlacepoint_address("вулиця Героїв Севастополя, 65, Київ, Украина");
-        placePoint.setPlacepoint_lat(50.4275495535948);
-        placePoint.setPlacepoint_long(30.435733795166016);
-
-        pointList.add(placePoint);
-
-        PlacePoint placePoint1 = new PlacePoint();
-        placePoint1.setPlacepoint_address("вулиця Сергія Колоса, 2А, Київ, Украина");
-        placePoint1.setPlacepoint_lat(50.39254223184437);
-        placePoint1.setPlacepoint_long(30.463199615478516);
-        pointList.add(placePoint1);
-
-
-        PlacePoint placePoint2 = new PlacePoint();
-        placePoint2.setPlacepoint_address("вулиця Верховинна, 68, Київ, Украина");
-        placePoint2.setPlacepoint_lat(50.452039290959505);
-        placePoint2.setPlacepoint_long(30.358829498291016);
-        pointList.add(placePoint2);
-
-
-        PlacePoint placePoint3 = new PlacePoint();
-        placePoint3.setPlacepoint_address("вулиця Михайла Ломоносова, 40-42, Київ, Украина");
-        placePoint3.setPlacepoint_lat(50.38904007706254);
-        placePoint3.setPlacepoint_long(30.468692779541016);
-        pointList.add(placePoint3);
-
-        return pointList;
-    }
 }
