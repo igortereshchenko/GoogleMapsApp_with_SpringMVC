@@ -17,8 +17,8 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
 
 
     @Override
-    public Map<String, Integer> getExpensesForTag(Date date_first, Date date_second, int phone) {
-        Map<String, Integer> hashMap = new HashMap<String, Integer>();
+    public Map<String, Double> getExpensesForTag(Date date_first, Date date_second, int phone) {
+        Map<String, Double> hashMap = new HashMap<String, Double>();
         try {
 
             System.out.println("F = " + date_first);
@@ -34,7 +34,7 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
             ResultSet rs = preparedStatement.executeQuery();
             System.out.println("2");
             while (rs.next()) {
-                int count = rs.getInt(1);
+                double count = rs.getInt(1);
                 String tag = rs.getString(2);
                 System.out.println("count " + count);
                 System.out.println("tag " + tag);

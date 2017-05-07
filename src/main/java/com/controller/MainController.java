@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import static com.Math.Mamdani.Mamdani.getEconomy;
+
+
 /**
  * Created by Ichanskiy on 2017-04-26.
  */
@@ -68,6 +71,7 @@ public class MainController {
         return "Expenses";
     }
 
+    //реєструємо в сесії користувача
     @RequestMapping(value = "expenses", method = RequestMethod.POST)
     public String listExpenses(Model model, HttpServletRequest request) {
         Object tel_reg_obj = request.getParameter("tel_reg");
@@ -86,7 +90,7 @@ public class MainController {
         return "Expenses";
     }
 
-
+    //додаємо покупки
     @RequestMapping(value = "/expenses/add", method = RequestMethod.POST)
     public String addExpenses(Model model, HttpServletRequest request){
         Object add = request.getParameter("address");
@@ -132,12 +136,14 @@ public class MainController {
         return "redirect:/expenses";
     }
 
+    //показуємо перод з  - до
     @RequestMapping(value = "/expenses/possibility", method = RequestMethod.GET)
     public String showInfoPage(){
 
         return "possibilityUser";
     }
 
+    // Мамдані і шлях
     @RequestMapping(value = "/expenses/possibility/dateInfo", method = RequestMethod.POST)
     public String showInfoDate(HttpServletRequest request, Model model){
         Object firstDateObj = request.getParameter("date_first");
@@ -158,9 +164,21 @@ public class MainController {
         int phone = Integer.parseInt(phone_str);
         System.out.println("phone = " + phone);
         //int phone = 777;
-        Map<String, Integer> hashMap;
-        hashMap =  expensesForTagDAO.getExpensesForTag(date_first, date_second , phone);
-        model.addAttribute("hashMap", hashMap);
+
+        //////////МАМДАНІ
+        Map<String, Double> hashMapTegExpenses;
+        Map<String, Double> removeTag;
+        hashMapTegExpenses =  expensesForTagDAO.getExpensesForTag(date_first, date_second , phone);
+        System.out.println("removeTag");
+        removeTag = getEconomy(hashMapTegExpenses);
+        model.addAttribute("hashMap", hashMapTegExpenses);
+        model.addAttribute("removeTag", removeTag);
+        System.out.println(removeTag);
+        //////////МАМДАНІ
+
+        /////шлях
+
+        /////////шлях
         return "infoDatePage";
     }
 

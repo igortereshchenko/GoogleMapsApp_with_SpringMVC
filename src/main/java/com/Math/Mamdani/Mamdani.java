@@ -17,7 +17,7 @@ public class Mamdani {
         inputMap.put("Кінотеатр", 800.0);
         System.out.println(getEconomy(inputMap));
     }
-    private static Map<String,Double> getEconomy(Map<String, Double> inputMap){
+    public static Map<String,Double> getEconomy(Map<String, Double> inputMap){
 
         Map<String, Double> mapImpotence = new HashMap<String, Double>();
         mapImpotence.put("Ресторан", 0.3);
@@ -26,15 +26,16 @@ public class Mamdani {
         mapImpotence.put("Штани", 0.7);
         mapImpotence.put("Верхній", 0.6);
         mapImpotence.put("Рубашки", 0.4);
-        mapImpotence.put("Іграшки", 0.2);
+        mapImpotence.put("Іграшки", 0.19);
         mapImpotence.put("Прикраси", 0.1);
-        mapImpotence.put("Квіти", 0.3);
+        mapImpotence.put("Квіти", 0.18);
         mapImpotence.put("Атракціони", 0.1);
         mapImpotence.put("Кінотеатр", 0.2);
 
 
 
         Map<String, Double> finalMap = new HashMap<String,Double>();
+        Map<String, Double> outputMap = new HashMap<String,Double>();
 
 
         for (Map.Entry entry : inputMap.entrySet()) {
@@ -49,21 +50,34 @@ public class Mamdani {
         }
 
         String key = getKeyMinMapElement(finalMap);
-        finalMap.remove(key);
+        System.out.println(key);
+        if (finalMap.size() <= 2){
+            System.out.println("<2");
+        }else {
+            System.out.println(finalMap.get(key));
+            outputMap.put(key, inputMap.get(key));
+            finalMap.remove(key);
+        }
+
+        System.out.println(outputMap);
 
         if (finalMap.size() > 2){
             key = getKeyMinMapElement(finalMap);
+            System.out.println(finalMap.get(key));
+            outputMap.put(key, inputMap.get(key));
             finalMap.remove(key);
         }
 
         if (finalMap.size() > 5){
             key = getKeyMinMapElement(finalMap);
+            System.out.println(finalMap.get(key));
+            outputMap.put(key, inputMap.get(key));
             finalMap.remove(key);
         }
 
-        //System.out.println(finalMap);
+       // System.out.println(outputMap);
 
-        return finalMap;
+        return outputMap;
     }
 
     private static String getKeyMinMapElement(Map<String, Double> inputMap){
