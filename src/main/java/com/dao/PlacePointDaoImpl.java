@@ -27,7 +27,7 @@ public class PlacePointDaoImpl implements PlacePointDao{
     }
 
     @Override
-    public void addPlacePoint(String addres_str, double lat_double, double long_double, int amount_int, String tagNameFk, String tagName, java.sql.Date date_sql) {
+    public void addPlacePoint(String addres_str, double lat_double, double long_double, int amount_int, String tagNameFk, String tagName, java.sql.Date date_sql, int phone) {
 
 
 
@@ -125,10 +125,10 @@ public class PlacePointDaoImpl implements PlacePointDao{
 
             PreparedStatement preparedStatement = null;
             preparedStatement = connection1.prepareStatement("INSERT INTO " +
-                    "USEREXPENSES (USER_PHONE_FK,PLACEPOINT_ID_FK,USEREXPERSES_DATE,userexpenses_count, USEREXPENSES_ID) " +
+                    "USEREXPENSES (USER_PHONE_FK,PLACEPOINT_ID_FK,USEREXPERSES_DATE, userexpenses_count, USEREXPENSES_ID) " +
                     "VALUES (?,?,?,?,?)");
             System.out.println("11");
-            preparedStatement.setInt(1, 777);
+            preparedStatement.setInt(1, phone);
             System.out.println("11.1");
 
             preparedStatement.setInt(2, result);
@@ -174,7 +174,7 @@ public class PlacePointDaoImpl implements PlacePointDao{
 
             CallableStatement callableStatement = connectionExpenseTag.prepareCall("{? = call GETUSEREXPENCESID(?,?,?,?)}");
             System.out.println("21");
-            callableStatement.setString(2, "777");
+            callableStatement.setInt(2, phone);
             System.out.println("22 set log");
             callableStatement.setDouble(3, long_double);
             System.out.println("23 long");

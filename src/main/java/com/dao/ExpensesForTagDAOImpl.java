@@ -1,7 +1,11 @@
 package com.dao;
 
+import com.model.AllExpensesClass;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.Connection.ConDB.getDBConnection;
@@ -10,23 +14,27 @@ import static com.Connection.ConDB.getDBConnection;
  * Created by Ichanskiy on 2017-04-29.
  */
 public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
-    @Override
 
-    public Map<String, Integer> getExpensesForTag(Date date_first, Date date_second) {
-        Map<String, Integer> hashMap = new HashMap<String, Integer>();
+
+    @Override
+    public Map<String, Double> getExpensesForTag(Date date_first, Date date_second, int phone) {
+        Map<String, Double> hashMap = new HashMap<String, Double>();
         try {
 
             System.out.println("F = " + date_first);
             System.out.println("S = " + date_second);
-
-
+            System.out.println("phones " + phone);
             Statement statement = null;
             statement = getDBConnection().createStatement();
             System.out.println("1");
-            ResultSet rs = statement.executeQuery("select USEREXPERSESCOUNT, TAG_NAME from TABLE(userExpenses_pkg.GetUserExpenses1('01-APR-17', '30-APR-17', 777))");
+            PreparedStatement preparedStatement = getDBConnection().prepareStatement("select USEREXPERSESCOUNT, TAG_NAME from TABLE(userExpenses_pkg.GetUserExpenses1(?, ?, ?))");
+            preparedStatement.setDate(1, date_first);
+            preparedStatement.setDate(2, date_second);
+            preparedStatement.setInt(3, phone);
+            ResultSet rs = preparedStatement.executeQuery();
             System.out.println("2");
             while (rs.next()) {
-                int count = rs.getInt(1);
+                double count = rs.getInt(1);
                 String tag = rs.getString(2);
                 System.out.println("count " + count);
                 System.out.println("tag " + tag);
@@ -49,4 +57,48 @@ public class ExpensesForTagDAOImpl implements ExpnsesForTagDAO {
 
         return hashMap;
     }
+
+
+    @Override
+    public List<AllExpensesClass> getAllExpenses(int phone) {
+
+         List<AllExpensesClass> allExpensesClassesList = new ArrayList<AllExpensesClass>();
+        try {
+
+            System.out.println("getAllExpenses");
+
+            Statement statement = null;
+            statement = getDBConnection().createStatement();
+            System.out.println("1");
+            PreparedStatement preparedStatement = getDBConnection().prepareStatement("select PLACEPOINT_ADDRESS, TAG_NAME, EXPENSES_DATE" +
+                                                                                            " from TABLE(userExpenses_pkg.GetUserExpenses3(?))");
+            preparedStatement.setInt(1, phone);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            System.out.println("2");
+            while (rs.next()) {
+                String addres = rs.getString(1);
+                System.out.println("addres " + addres);
+
+                String tag = rs.getString(2);
+                System.out.println("tag " + tag);
+
+                Date date = rs.getDate(3);
+                System.out.println("date " + date);
+
+                AllExpensesClass allExpensesClass =  new AllExpensesClass();
+                allExpensesClass.setAddress(addres);
+                allExpensesClass.setTag(tag);
+                allExpensesClass.setDate(date);
+
+                allExpensesClassesList.add(allExpensesClass);
+            }
+            System.out.println("finish getAllExpenses");
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allExpensesClassesList;
+    }
+
 }

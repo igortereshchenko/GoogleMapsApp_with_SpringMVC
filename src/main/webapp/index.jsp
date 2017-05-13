@@ -8,57 +8,45 @@
     <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/maskinput.js"></script>
-    <script type="text/javascript">
-        jQuery(function($){
-            $("#tel").mask("+38(999) 999-9999");
-        });
-    </script>
+
 
 
     <style>
         #div_reg{
             margin-top: 2%;
-            margin-left: 30%;
-            margin-right: 30%;
+            margin-left: 25%;
+            margin-right: 25%;
             border: solid 1px black;
             padding: 3%;
             float: inherit;
             background-color: lemonchiffon;
         }
+        #ppp{
+            font-family:Lobster, cursive; Font-size:30px;
+        }
+
     </style>
 </head>
 <body>
 <br/><br/>
-<center><h3>Test project</h3></center>
+<center><h3>Ічанський Олександр</h3></center>
 
 <div id="div_reg">
     <form role="form">
 
         <div class="form-group">
-            <label for="names">Ім'я</label>
-            <input type="text" class="form-control" id="names" placeholder="Ім'я" required pattern="[A-Za-zА-Яа-я_-]{2,30}[А-Яа-яA-Za-z]{2,30}">
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Введіть email" required pattern="(\W|^)[\w.+\-]{0,25}@(yahoo|hotmail|gmail|i)\.com(\W|$)">
-        </div>
-
-        <div class="form-group">
-            <label for="email">Номер телефону</label>
-            <input type="tel" name="tel_reg" id="tel" class="form-control" placeholder="Мобільний телефон" required>
-        </div>
-
-        <div class="form-group">
-            <label for="date">День народження</label>
-            <input type="date" name="tel_reg" id="date" class="form-control" placeholder="День народження" required>
-        </div>
-
+            <center>
+            <span id="ppp">Дипломна робота на тему:
+                <br>
+            Математичне і програмне забезпечення
+                <br>
+            для аналізу витрат користувача</span>
+            <br><br>
 <%--
         <a href="<c:url value="/spending"/>" ><button type="button" class="btn btn-success">Приклад</button></a>
 --%>
-        <a href="<c:url value="/expenses"/>" ><button type="button" class="btn btn-success">Увійти</button></a>
-        <button type="submit" class="btn btn-success">Реєстрація</button>
+        <a href="<c:url value="/LogIn"/>" ><button type="button" class="btn btn-success">Старт</button></a>
+            </center>
     </form>
 </div>
 

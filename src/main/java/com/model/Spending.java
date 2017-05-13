@@ -1,3 +1,4 @@
+/*
 package com.model;
 import javax.persistence.*;
 
@@ -88,3 +89,4 @@ public class Spending {
                 '}';
     }
 }
+*/

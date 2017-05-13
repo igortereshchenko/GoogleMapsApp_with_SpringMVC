@@ -5,8 +5,8 @@ package com.model;
  */
 public class PlacePoint {
 
-    private int placepoint_long;
-    private int placepoint_lat;
+    private double placepoint_long;
+    private double placepoint_lat;
     private String placepoint_address;
 
     public PlacePoint() {
@@ -18,19 +18,19 @@ public class PlacePoint {
         this.placepoint_address = placepoint_address;
     }
 
-    public int getPlacepoint_long() {
+    public double getPlacepoint_long() {
         return placepoint_long;
     }
 
-    public void setPlacepoint_long(int placepoint_long) {
+    public void setPlacepoint_long(double placepoint_long) {
         this.placepoint_long = placepoint_long;
     }
 
-    public int getPlacepoint_lat() {
+    public double getPlacepoint_lat() {
         return placepoint_lat;
     }
 
-    public void setPlacepoint_lat(int placepoint_lat) {
+    public void setPlacepoint_lat(double placepoint_lat) {
         this.placepoint_lat = placepoint_lat;
     }
 

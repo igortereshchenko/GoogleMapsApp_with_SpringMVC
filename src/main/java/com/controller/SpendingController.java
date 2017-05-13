@@ -1,3 +1,4 @@
+/*
 package com.controller;
 
 import com.model.Spending;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+*/
 /**
  * Created by Ichanskiy on 2017-04-20.
- */
+ *//*
+*/
+/**//*
+
 @Controller
 public class SpendingController {
 
@@ -48,3 +53,4 @@ public class SpendingController {
         return "spendingData";
     }
 }
+*/

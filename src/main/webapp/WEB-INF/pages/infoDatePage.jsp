@@ -78,7 +78,27 @@
                 </c:forEach>
             </table>
         </div>
+</c:if>
+    </center><center><h1>Економія</h1></center>
+
+<c:if test="${!empty removeTag}">
+    <center>
+        <div>
+            <table class="tg">
+                <tr>
+                    <th width="80">Економити на тегк</th>
+                    <th width="120">кількість зекономлених грошей</th>
+                </tr>
+                <c:forEach items="${removeTag}" var="removeTag">
+                    <tr>
+                        <td>${removeTag.key}</td>
+                        <td>${removeTag.value}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </center>
+
 </c:if>
 </body>
 </html>
